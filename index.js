@@ -21,7 +21,7 @@ MongoClient.connect(url, function (err, client) {
     var post = {_id: 1, user: "Géna", title: "title1", content: "content1", comments :[{"user": "user1", "comment": "Bravo"}]};
 
     // insertion dans la collection de mongo > {upsert: true} est un objet de config, upsert signifie update or insert if not found
-    // doc de replaceOne sur la odc officielle de la lib. : http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#replaceOne
+    // doc de replaceOne sur la doc officielle de la lib. : http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#replaceOne
     db.collection("post").replaceOne({_id: 1}, post, {upsert: true}, function (error, results) {
         if (error) throw error;
         //console.log("Le document a bien été inséré");
@@ -41,7 +41,7 @@ MongoClient.connect(url, function (err, client) {
                 // on l'affiche
                 console.log("resultat : ",result);
 
-                // fermeture de la connexion (sinon le script ne rend pas la main.
+                // fermeture de la connexion (sinon le script ne rend pas la main.)
                 client.close();
             })
         });
