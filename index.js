@@ -1,59 +1,55 @@
-var mysql = require('mysql');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
 
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'InteractionBetweenNodeAndBdd'
+// Connection URL
+const url = 'mongodb://localhost:27017';
+
+//Data Name
+
+const dbName = 'InteractionBetweenNodeAndBdd';
+
+//Use connect method to connect to the server
+
+MongoClient.connect(url, function (err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+
+    // connection ouverte on se positionne sur la BDD InteractionBetweenNodeAndBdd
+    const db = client.db(dbName);
+
+    // création d'un objet post avec un commentaire
+    var post = {_id: 1, user: "Géna", title: "title1", content: "content1", comments :[{"user": "user1", "comment": "Bravo"}]};
+
+    // insertion dans la collection de mongo > {upsert: true} est un objet de config, upsert signifie update or insert if not found
+    // doc de replaceOne sur la odc officielle de la lib. : http://mongodb.github.io/node-mongodb-native/3.0/api/Collection.html#replaceOne
+    db.collection("post").replaceOne({_id: 1}, post, {upsert: true}, function (error, results) {
+        if (error) throw error;
+        //console.log("Le document a bien été inséré");
+
+        //Ajout de 2 nouveaux commentaires
+        post.comments.push({"user": "user2", "comment": "Génial"});
+        post.comments.push({"user": "user3", "comment": "Pas faux"});
+
+        // update dans mongo
+        db.collection("post").replaceOne({_id: 1}, post, {upsert: true}, function (error, results) {
+            if (error) throw error;
+            //console.log("Le document a bien été updated");
+
+            // on interroge la bdd mongo pour récupérer l'enregistrement
+            db.collection("post").findOne({_id: 1}, function (error, result) {
+
+                // on l'affiche
+                console.log("resultat : ",result);
+
+                // fermeture de la connexion (sinon le script ne rend pas la main.
+                client.close();
+            })
+        });
+    });
 });
 
-connection.connect();
+// Noter que que : bien que positionné en dernier dans le code, ce message s'affiche en premier
+// Vive l'asynchrone Lol ;)
+console.log('done');
 
-$query = "INSERT INTO Post (`title`, `content`, `idUser`) VALUES ('title 1', 'Content1', 1);"
 
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('inserted post 1 ');
-});
-
-$query = "INSERT INTO Post (`title`, `content`, `idUser`) VALUES ('title 2', 'Content2', 2);"
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('inserted post 2 ');
-});
-
-$query = "INSERT INTO Comments (`comment`, `idUser`, `idPost`) VALUES ('Comment 1 on post 1', 2, 1);"
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('inserted comment 1 ');
-});
-
-$query = "INSERT INTO Comments (`comment`, `idUser`, `idPost`) VALUES ('Comment 2 on post 1', 3, 1);"
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('inserted comment 2 ');
-});
-
-$query = "INSERT INTO Comments (`comment`, `idUser`, `idPost`) VALUES ('Comment 3 on post 2', 1, 2);"
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('inserted comment 3 ');
-});
-
-$query = "SELECT P.*, U.pseudo FROM Post P INNER JOIN users U USING(idUser);"
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('Select all ', results);
-});
-
-$query = "TRUNCATE Post;"
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('truncate Post');
-});
-
-$query = "TRUNCATE Comments;"
-connection.query($query, function (error, results, fields) {
-    if (error) throw error;
-    console.log('truncate Comments');
-});
