@@ -47,6 +47,39 @@ MongoClient.connect(url, function (err, client) {
         });
     });
 });
+MongoClient.connect(url, function (err, client) {
+    assert.equal(null, err);
+    console.log("Connected successfully to server");
+
+    // connection ouverte on se positionne sur la BDD InteractionBetweenNodeAndBdd
+    const db = client.db(dbName);
+    var post = {_id: 2, user: "Steph", title:"pomme",content: "la pomme c'est bon pour la santé", comments: [{"user":"Gerard", "comment":"sympa"}]};
+    db.collection("post").replaceOne({_id: 2}, post, {upsert: true}, function (error, results) {
+        if (error) throw error;
+        //console.log("Le document a bien été inséré");
+
+        //Ajout de 2 nouveaux commentaires
+        post.comments.push({"user": "Paul", "comment": "c'est sûr"});
+        post.comments.push({"user": "Jacques", "comment": "exact"});
+        // update dans mongo
+        db.collection("post").replaceOne({_id: 2}, post, {upsert: true}, function (error, results) {
+            if (error) throw error;
+            //console.log("Le document a bien été updated");
+
+            // on interroge la bdd mongo pour récupérer l'enregistrement
+            db.collection("post").findOne({_id: 2}, function (error, result) {
+
+                // on l'affiche
+                console.log("resultat : ",result);
+
+
+                // fermeture de la connexion (sinon le script ne rend pas la main.)
+                client.close();
+            })
+        });
+    });
+});
+
 
 // Noter que que : bien que positionné en dernier dans le code, ce message s'affiche en premier
 // Vive l'asynchrone Lol ;)

@@ -41,7 +41,7 @@ Initialiser la connexion :
 ???
 
 ```
-Appeler la méthode createConnection de l'instance mysql (objet) en lui passant un objet contenant les paramètres, qui retourne une instance de la cclasse connexion
+Appeler la méthode createConnection de l'instance mysql (objet) en lui passant un objet contenant les paramètres, qui retourne une instance de la classe connexion
 On appelle la méthode connect sur cette instance pour établir la connexion
 
 
