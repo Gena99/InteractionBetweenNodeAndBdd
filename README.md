@@ -17,7 +17,8 @@
 * [librairie mongo pour node](https://www.npmjs.com/package/mongodb)
 * [Référence de la lib](http://mongodb.github.io/node-mongodb-native/3.0/)
 * [documentation de l'api](http://mongodb.github.io/node-mongodb-native/3.0/api/)
-
+* [Se connecter depuis Node.js](https://zestedesavoir.com/tutoriels/312/debuter-avec-mongodb-pour-node-js/#4-11691_operations-depuis-nodejs)
+* [ read, update, delete](https://docs.mongodb.com/manual/crud/)
 
 ### Step by Step
 Création du package.json. Lancer la commande ci-dessous et remplir les informations au fur et à mesure
@@ -41,14 +42,22 @@ Initialiser la connexion :
 ???
 
 ```
+
 Appeler la méthode createConnection de l'instance mysql (objet) en lui passant un objet contenant les paramètres, qui retourne une instance de la classe connexion
-On appelle la méthode connect sur cette instance pour établir la connexion
+On appelle la méthode connect sur cette instance pour établir la connexion. A savoir : il faut relancer la connection pour chaque fonctionnalité rajoutée (c'est le côté asynchrone qui veut ça.)
 
 
 
-Insérer un post :
+Insérer un post avec un commentaire:
 ````javascript
-???
+    var post = {
+        _id: 1,
+        user: "Géna",
+        title: "title1",
+        content: "content1",
+        comments: [{"user": "user1", "comment": "Bravo"}]
+    };
+
 ````
 On assigne une requête SQL à la variable $query, 
 on appelle la méthode query sur l'instance de la connexion. Cette méthode communique avec la base de données pour transmettre et exécuter la requête.
