@@ -13,4 +13,11 @@
 * Read one post with all its comments 
 
 ### Usefull Links
-* 
+* [MySQL](https://www.mysql.com/fr/)
+* [SQLite](https://www.sqlite.org/index.html)
+* [MongoDB](https://www.mongodb.com/)
+* [phpMyAdmin](https://www.phpmyadmin.net/)
+* [phpLiteAdmin](https://www.phpliteadmin.org/)
+* [MongoDB Compass](https://www.mongodb.com/products/compass)
+* [node](https://nodejs.org/en/)
+
