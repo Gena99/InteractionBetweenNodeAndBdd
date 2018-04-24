@@ -5,7 +5,7 @@
 * A running mysql server instance
 * A Gui (Graphical User interface) For mysql server
 
-## Step 1
+## Steps
 * Create a database for a simple blog system : user/post/comment
 * Insert a new post
 * Insert a comment on a post
