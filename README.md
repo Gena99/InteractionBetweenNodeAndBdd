@@ -20,4 +20,12 @@
 * [phpLiteAdmin](https://www.phpliteadmin.org/)
 * [MongoDB Compass](https://www.mongodb.com/products/compass)
 * [node](https://nodejs.org/en/)
+* [NpmJS](https://www.npmjs.com)
+* [librairie mysql pour node](https://www.npmjs.com/package/mysql)
+* [npm package manager website](https://www.npmjs.com)
+* [librairie mongo pour node](https://www.npmjs.com/package/mongodb)
+* [Référence de la lib](http://mongodb.github.io/node-mongodb-native/3.0/)
+* [documentation de l'api](http://mongodb.github.io/node-mongodb-native/3.0/api/)
+* [Se connecter depuis Node.js](https://zestedesavoir.com/tutoriels/312/debuter-avec-mongodb-pour-node-js/#4-11691_operations-depuis-nodejs)
+* [ read, update, delete](https://docs.mongodb.com/manual/crud/)
 
