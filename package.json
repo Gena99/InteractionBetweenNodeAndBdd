@@ -9,7 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< Updated upstream
     "mongodb": "^3.0.3",
     "mysql": "^2.15.0"
+=======
+    "mysql": "github:mysqljs/mysql",
+    "mysql-lite": "^2016.12.28",
+    "nodejs": "0.0.0",
+    "sqlite3": "^4.0.0"
+>>>>>>> Stashed changes
   }
 }
